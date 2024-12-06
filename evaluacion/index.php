@@ -13,30 +13,29 @@
         </header>
         <section id="contenedor">
             <section class="problema">
-                <h2>Problema: Fuerzas en equilibrio</h2>
+                <h2>Problema: colector solar plano</h2>
                 <p>Descripción:</p>
                 <p>
-                    ¿A qué distancia de la Tierra debe estar un cuerpo para que
-                    sienta un equilibrio entre las fuerzas gravitacionales que
-                    ejercen sobre él el Sol y la Tierra? La distancia media de Sol a
-                    la Tierra es de 1·5 ×10E8 km y la masa del Sol es 332 946
-                    masas terrestres.
+                Un colector solar plano que tiene una soperficie de 4 m2 debe calentar agua para uso domestico. Sabiendo que el coeficiente de 
+    radiacion solar k=0,9 cal/min.cm2 y que el consumo de agua esconstante, a razon de 6 litros /minutos, determina el aumento 
+    de temperatura del agua si esta funcionando duarnte 2 horas. Se supone que inicialmente el agua esta a 18°C y que no hay perdidas de calor
                 </p>
             </section>
             <section class="esquemaProblema">
                 <h2>Esquema</h2>
                 <center>
-                    <img class="imgProblema" src="images/esquema.jpeg" alt="Esquema del problema">
+                    <img class="imgProblema" src="images/e.jpeg" alt="Esquema del problema">
                 </center>
             </section>
             <section class="formulas">
                 <h2>Fórmulas</h2>
-                <img class="imgProblema" src="images/1.png" alt="Fórmulas del problema">
+                <img class="imgProblema" src="images/11.jpeg" alt="Fórmulas del problema">
             </section>
             <section class="datos">
-                <h2>Datos:</h2>
-                <p>Distancia Tierra-Sol (Dt-s) = 1.5 × 10<sup>8</sup> km</p>
-                <p>Masa del Sol (Ms) = 332 946 masas terrestres</p>
+            <p>Q=Energia generada, K=coeficiente de radiacion</p><br>
+        <p>Tiempo, en minutos</p>
+        <p>Area, cm2</p>
+<p>rendimiento</p>
             </section>
             <section class="calculos">
                 <h2>Solución</h2>
@@ -47,37 +46,26 @@
             <section class="resultado">
                 <h2>Resultado:</h2>
                 <?php
-                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['calcular'])) {
-                    // Constantes
-                    $Dt_s = 1.5e8; // Distancia Tierra-Sol en km
-                    $Ms_Mt = 332946; // Relación de masa Sol / masa Tierra
 
-                    // Coeficientes de la ecuación cuadrática
-                    $a = $Ms_Mt - 1;
-                    $b = -2 * $Dt_s * $Ms_Mt;
-                    $c = pow($Dt_s, 2) * $Ms_Mt;
-
-                    // Discriminante
-                    $discriminante = pow($b, 2) - 4 * $a * $c;
-
-                    if ($discriminante < 0) {
-                        echo "<p>Error: No hay soluciones reales.</p>";
-                    } else {
-                        // Soluciones de la ecuación cuadrática
-                        $solucion1 = (-$b + sqrt($discriminante)) / (2 * $a);
-                        $solucion2 = (-$b - sqrt($discriminante)) / (2 * $a);
-
-                        // Seleccionar la solución positiva (física)
-                        $r2 = $solucion1 > 0 ? $solucion1 : $solucion2;
-
-                        if ($r2 > 0) {
-                            echo "<p>El valor de r<sub>2</sub> es: " . number_format($r2, 2) . " km</p>";
-                        } else {
-                            echo "<p>Error: No hay soluciones físicas.</p>";
-                        }
-                    }
-                }
-                ?>
+             // Datos iniciales
+             $k = 0.9; // Coeficiente de radiación solar en cal/min·cm²
+             $A = 4; // Área del colector en m²
+             $t = 120; // Tiempo de funcionamiento en minutos
+             $flow_rate = 6 * 1000; // Flujo de agua en gramos/min (6 litros/min -> 6000 g/min)
+             $c = 1; // Calor específico del agua en cal/g·°C
+             
+             // Conversión de k a cal/min·m²
+             $k_m2 = $k * 10000; // 1 m² = 10000 cm²
+             
+             // Calor absorbido por el colector
+             $Q_absorbed = $k_m2 * $A * $t;
+             
+             // Aumento de temperatura del agua
+             $delta_T = $Q_absorbed / ($flow_rate * $t * $c);
+             
+             // Resultados
+             echo "El aumento de temperatura del agua es: " . round($delta_T, 2) . " °C.\n";
+?>
             </section>
         </section>
         <footer class="pie">
